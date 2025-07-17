@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+    <link rel="stylesheet" type="text/css" href="styless.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init('wCrL341caU1QH8m-1');
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+    
+                // Get form values
+                var name = document.getElementById('from_name').value;
+                var email = document.getElementById('from_email').value;
+                var message = document.getElementById('message').value;
+    
+                // Construct the email parameters
+                var params = {
+                    from_name: name,
+                    from_email: email,
+                    message: message
+                };
+    
+                // Send the email
+                emailjs.send('service_653s2t8', 'template_ori443d', params)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                        // Clear form fields
+                        document.getElementById('from_name').value = '';
+                        document.getElementById('from_email').value = '';
+                        document.getElementById('message').value = '';
+                        window.location.href = 't.html';
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script>
+</head>
+<body>
+
+   <div class="container">
+    <h1>Feedback Form</h1>
+    <form id="contact-form">
+      <label for="name">Name:</label>
+      <input type="text" id="from_name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="from_email" name="email" required>
+      
+      <label for="message">Feedback:</label>
+      <textarea id="message" name="message" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
